@@ -16,10 +16,9 @@ var _ = fis.util,
 
 
 module.exports = function(id) {
-    var info = getModule(id);
-    info = info || getLegoModule(id);
-    return info;
+    return getModule(id) || getLegoModule(id);
 };
+
 
 /**
  * 从 modules 目录获取模块
@@ -27,7 +26,7 @@ module.exports = function(id) {
  */
 function getModule(id) {
     if (_.isFile(_(mod, id + '.js'))) {
-        fis.log.info('lego: get %s from modules', id);
+        fis.log.debug('lego: get %s from <modules>', id);
         return id;
     }
     return null;
@@ -45,7 +44,7 @@ function getLegoModule(id) {
         root = _(lego, id);
 
 
-    fis.log.info('lego: get %s from lego_modules', id);
+    fis.log.debug('lego: get %s from <lego_modules>', id);
     if (!_.isDir(root)) {
         return fis.log.error('lego: 找不到 lego 组件 %s 的目录', id);
     }
