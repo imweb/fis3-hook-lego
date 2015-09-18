@@ -1,4 +1,5 @@
 /**
+ * @require './main.css'
  * @author jero
  * @date 2015-09-12
  */
