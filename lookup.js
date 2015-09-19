@@ -28,6 +28,9 @@ function getModule(id) {
     if (_.isFile(_(mod, id + '.js'))) {
         fis.log.debug('lego: get %s from <modules>', id);
         return id;
+    } else if (_.isFile(_(mod, id, id + '.js'))) {
+        fis.log.debug('lego: get %s from <modules>', id + '/' + id);
+        return id;
     }
     return null;
 }
