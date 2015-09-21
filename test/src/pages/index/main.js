@@ -9,3 +9,5 @@ var version = require('versions@0.1.0');
 var common = require('common');
 var testModule = require('test_module');
 var header = require('index/header');
+
+var index = require('index');
