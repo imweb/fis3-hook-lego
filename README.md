@@ -49,6 +49,7 @@ var version = require('versions@0.1.0'); // 指定版本
 var common = require('common');
 var testModule = require('test_module');
 var header = require('index/header');   // modules 中也可以省去 `modules`
+var index = require('index'); // 查找modules/index.js ; modules/index/index.js
 ```
 
 
