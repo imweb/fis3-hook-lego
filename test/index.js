@@ -89,6 +89,7 @@ describe('fis3-hook-lego ', function () {
                 'common': '/modules/common/common.js',      // 覆盖 modules/common.js
                 'test_module': '/modules/test_module.js',    // 覆盖 lego 下的
                 'index/header': '/modules/index/header/header.js',
+                'index': '/modules/index/index.js', 
                 'versions/0.1.0/index': '/lego_modules/versions/0.1.0/index.js' // 多版本
             };
 
