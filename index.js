@@ -1,10 +1,11 @@
 /**
+export CLICOLOR=1
  * lego mmodule hook
  * @author jerojiang
  * @link http://lego.imweb.io/
  */
-var lookup = require('./lookup');
-var pack = require('./pack');
+var lookup = require('./lib/lookup');
+var pack = require('./lib/pack');
 
 module.exports = function init(fis, opts) {
     fis.on('lookup:file', function(info, file) {
@@ -19,5 +20,5 @@ module.exports = function init(fis, opts) {
         }
     });
 
-    // fis.on('packager', pack);
+    fis.on('packager', pack);
 };

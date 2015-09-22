@@ -29,7 +29,8 @@ function hookSelf(opts) {
     var origin = fis.get(key);
 
     if (origin) {
-        origin = typeof origin === 'string' ? origin.split(/\s*,\s*/) : (Array.isArray(origin) ? origin : [origin]);
+        origin = typeof origin === 'string' ?
+            origin.split(/\s*,\s*/) : (Array.isArray(origin) ? origin : [origin]);
     } else {
         origin = [];
     }
@@ -39,6 +40,7 @@ function hookSelf(opts) {
 
         _.assign(options, _self.defaultOptions);
         _.assign(options, opts);
+
         return _self.call(this, fis, options);
     });
 
@@ -54,6 +56,9 @@ describe('fis3-hook-lego ', function() {
         var dev = path.join(__dirname, 'dev');
 
         _.del(dev);
+
+
+        // fis.log.level = fis.log.L_ALL;
 
         fis.match('::package', {
             lego: {
@@ -86,12 +91,17 @@ describe('fis3-hook-lego ', function() {
                 id: '$1'
             });
 
+        fis.match(/^\/(pages\/.+)\.js$/, {
+            isMod: true,
+            id: '$1'
+        });
+
     });
 
     it('lego hook', function(done) {
         fis.on('release:end', function(ret) {
             var ids = ret.ids;
-            var mainInfo = ids['pages/index/main.js'];
+            var mainInfo = ids['pages/index/main'];
             var subpath = { // subpath
                 'dialog/0.1.0/custom': '/lego_modules/dialog/0.1.0/custom.js',
                 'slider/0.1.0/index': '/lego_modules/slider/0.1.0/index.js',
