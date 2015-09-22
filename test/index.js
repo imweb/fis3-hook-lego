@@ -62,7 +62,7 @@ describe('fis3-hook-lego ', function() {
 
         fis.match('::package', {
             lego: {
-                // autoPack: true,
+                autoPack: true,
                 autoLoad: true
             }
         });
