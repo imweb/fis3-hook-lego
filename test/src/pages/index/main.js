@@ -12,3 +12,7 @@ var testModule = require('test_module');
 var header = require('index/header');
 
 console.log(dialog, slider, tab, version, testModule, header);
+
+require.async('./async', function(async) {
+    async();
+});

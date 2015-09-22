@@ -153,6 +153,7 @@ var require, define;
 
                 needMap[dep] = true;
                 needNum++;
+                console.log(dep, '<<<<<<<<<<');
                 loadScript(dep, updateNeed, onerror);
 
                 var child = resMap[dep] || resMap[dep + '.js'];
