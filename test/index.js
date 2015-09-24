@@ -58,7 +58,7 @@ describe('fis3-hook-lego findup & autoLoad', function() {
         _.del(dev);
 
 
-        //fis.log.level = fis.log.L_ALL;
+        fis.log.level = fis.log.L_ALL;
 
         fis.match('::package', {
             lego: {
@@ -131,83 +131,83 @@ describe('fis3-hook-lego findup & autoLoad', function() {
 });
 
 
-//describe('fis3-hook-lego pack', function() {
-//
-//
-//    beforeEach(function() {
-//        var dist = path.join(__dirname, 'dist');
-//
-//        _.del(dist);
-//
-//
-//        fis.log.level = fis.log.L_ALL;
-//
-//        fis.match('::package', {
-//            lego: {
-//                autoPack: true,
-//                autoLoad: true
-//            }
-//        });
-//
-//        fis.match('*', {
-//            deploy: fis.plugin('local-deliver', {
-//                to: dist
-//            })
-//        });
-//
-//        fis.hook('commonjs');
-//
-//        hookSelf();
-//
-//
-//        fis.match(/^\/modules\/(.+)\.js$/, {
-//            isMod: true,
-//            id: '$1'
-//        })
-//            .match(/^\/modules\/((?:[^\/]+\/)*)([^\/]+)\/\2\.(js)$/i, {
-//                // isMod: true,
-//                id: '$1$2'
-//            })
-//            .match(/^\/lego_modules\/(.+)\.js$/i, {
-//                isMod: true,
-//                id: '$1'
-//            });
-//
-//        fis.match(/^\/(pages\/.+)\.js$/, {
-//            isMod: true,
-//            id: '$1'
-//        });
-//
-//    });
-//
-//    it('lego hook', function(done) {
-//        fis.on('release:end', function(ret) {
-//            var ids = ret.ids;
-//            var mainInfo = ids['pages/index/main'];
-//            var subpath = { // subpath
-//                'dialog/0.1.0/custom': '/lego_modules/dialog/0.1.0/custom.js',
-//                'slider/0.1.0/index': '/lego_modules/slider/0.1.0/index.js',
-//                'tab/0.1.0/tab': '/lego_modules/tab/0.1.0/tab.js',
-//                common: '/modules/common/common.js', // 覆盖 modules/common.js
-//                test_module: '/modules/test_module.js', // 覆盖 lego 下的
-//                'index/header': '/modules/index/header/header.js',
-//                'versions/0.1.0/index': '/lego_modules/versions/0.1.0/index.js' // 多版本
-//            };
-//
-//
-//            mainInfo.requires.forEach(function(id) {
-//                subpath[id] && expect(ids[id].subpath).to.equal(subpath[id]);
-//            });
-//
-//            // expect(2).to.equal(2);
-//        });
-//
-//
-//        release({
-//            unique: true
-//        }, function() {
-//            done();
-//            fis.log.info('release complete');
-//        });
-//    });
-//});
+describe('fis3-hook-lego pack', function() {
+
+
+    beforeEach(function() {
+        var dist = path.join(__dirname, 'dist');
+
+        _.del(dist);
+
+
+        fis.log.level = fis.log.L_ALL;
+
+        fis.match('::package', {
+            lego: {
+                autoPack: true,
+                autoLoad: true
+            }
+        });
+
+        fis.match('*', {
+            deploy: fis.plugin('local-deliver', {
+                to: dist
+            })
+        });
+
+        fis.hook('commonjs');
+
+        hookSelf();
+
+
+        fis.match(/^\/modules\/(.+)\.js$/, {
+            isMod: true,
+            id: '$1'
+        })
+            .match(/^\/modules\/((?:[^\/]+\/)*)([^\/]+)\/\2\.(js)$/i, {
+                // isMod: true,
+                id: '$1$2'
+            })
+            .match(/^\/lego_modules\/(.+)\.js$/i, {
+                isMod: true,
+                id: '$1'
+            });
+
+        fis.match(/^\/(pages\/.+)\.js$/, {
+            isMod: true,
+            id: '$1'
+        });
+
+    });
+
+    it('lego hook', function(done) {
+        fis.on('release:end', function(ret) {
+            var ids = ret.ids;
+            var mainInfo = ids['pages/index/main'];
+            var subpath = { // subpath
+                'dialog/0.1.0/custom': '/lego_modules/dialog/0.1.0/custom.js',
+                'slider/0.1.0/index': '/lego_modules/slider/0.1.0/index.js',
+                'tab/0.1.0/tab': '/lego_modules/tab/0.1.0/tab.js',
+                common: '/modules/common/common.js', // 覆盖 modules/common.js
+                test_module: '/modules/test_module.js', // 覆盖 lego 下的
+                'index/header': '/modules/index/header/header.js',
+                'versions/0.1.0/index': '/lego_modules/versions/0.1.0/index.js' // 多版本
+            };
+
+
+            mainInfo.requires.forEach(function(id) {
+                subpath[id] && expect(ids[id].subpath).to.equal(subpath[id]);
+            });
+
+            // expect(2).to.equal(2);
+        });
+
+
+        release({
+            unique: true
+        }, function() {
+            done();
+            fis.log.info('release complete');
+        });
+    });
+});
