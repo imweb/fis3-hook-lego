@@ -12,6 +12,7 @@ var expect = require('chai').expect;
 var _release = fis.require('command-release/lib/release.js');
 var _deploy = fis.require('command-release/lib/deploy.js');
 var root = path.join(__dirname, 'src');
+
 fis.project.setProjectRoot(root);
 var _self = require('../index.js');
 
@@ -33,8 +34,9 @@ function hookSelf(opts) {
         origin = [];
     }
 
-    origin.push(function (fis) {
+    origin.push(function(fis) {
         var options = {};
+
         _.assign(options, _self.defaultOptions);
         _.assign(options, opts);
         return _self.call(this, fis, options);
@@ -45,12 +47,15 @@ function hookSelf(opts) {
 
 
 
-describe('fis3-hook-lego ', function () {
+describe('fis3-hook-lego ', function() {
 
 
-    beforeEach(function () {
+    beforeEach(function() {
         var dev = path.join(__dirname, 'dev');
+
         _.del(dev);
+
+        // fis.log.level = fis.log.L_ALL;
 
         fis.match('*', {
             deploy: fis.plugin('local-deliver', {
@@ -60,7 +65,9 @@ describe('fis3-hook-lego ', function () {
 
         fis.hook('commonjs');
 
-        hookSelf();
+        hookSelf({
+            ignore: ['ignore']
+        });
 
 
         fis.match(/^\/modules\/(.+)\.js$/, {
@@ -68,7 +75,7 @@ describe('fis3-hook-lego ', function () {
                 id: '$1'
             })
             .match(/^\/modules\/((?:[^\/]+\/)*)([^\/]+)\/\2\.(js)$/i, {
-                //isMod: true,
+                // isMod: true,
                 id: '$1$2'
             })
             .match(/^\/lego_modules\/(.+)\.js$/i, {
@@ -78,26 +85,28 @@ describe('fis3-hook-lego ', function () {
 
     });
 
-    it('lego hook', function (done) {
+    it('lego hook', function(done) {
         fis.on('release:end', function(ret) {
             var ids = ret.ids;
             var mainInfo = ids['pages/index/main.js'];
-            var subpath = {   // subpath
+            var subpath = { // subpath
                 'dialog/0.1.0/custom': '/lego_modules/dialog/0.1.0/custom.js',
                 'slider/0.1.0/index': '/lego_modules/slider/0.1.0/index.js',
                 'tab/0.1.0/tab': '/lego_modules/tab/0.1.0/tab.js',
-                'common': '/modules/common/common.js',      // 覆盖 modules/common.js
-                'test_module': '/modules/test_module.js',    // 覆盖 lego 下的
+                common: '/modules/common/common.js', // 覆盖 modules/common.js
+                test_module: '/modules/test_module.js', // 覆盖 lego 下的
                 'index/header': '/modules/index/header/header.js',
-                'index': '/modules/index/index.js', // 引用modules目录文件夹下的同名js文件
-                'versions/0.1.0/index': '/lego_modules/versions/0.1.0/index.js' // 多版本
+                index: '/modules/index/index.js', // 引用modules目录文件夹下的同名js文件
+                'versions/0.1.0/index': '/lego_modules/versions/0.1.0/index.js', // 多版本
+                ignore: '' // 忽略
             };
 
             mainInfo.requires.forEach(function(id) {
-                expect(ids[id].subpath).to.equal(subpath[id]);
+                // expect(2).to.equal(2);
+                ids[id] != null && expect(ids[id].subpath).to.equal(subpath[id]);
             });
 
-             // expect(1).to.equal(2);
+            // expect(1).to.equal(2);
         });
 
         release({
@@ -108,6 +117,6 @@ describe('fis3-hook-lego ', function () {
         });
 
 
-        //expect(1).to.equal(1);
+        // expect(1).to.equal(1);
     });
 });

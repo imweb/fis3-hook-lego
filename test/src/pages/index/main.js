@@ -9,5 +9,5 @@ var version = require('versions@0.1.0');
 var common = require('common');
 var testModule = require('test_module');
 var header = require('index/header');
-
+var ignore = require('ignore');
 var index = require('index');
