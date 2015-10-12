@@ -96,7 +96,11 @@ describe('fis3-hook-lego ', function () {
             mainInfo.requires.forEach(function(id) {
                 expect(ids[id].subpath).to.equal(subpath[id]);
             });
-
+            
+            var idMaps = fis.get('idMaps');
+            expect(idMaps['dialog/0.1.0/custom']).to.equal('dialog');
+            expect(idMaps['slider/0.1.0/index']).to.equal('slider');
+            expect(idMaps['test_module']).to.equal('test_module');
              // expect(1).to.equal(2);
         });
 
