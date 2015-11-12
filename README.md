@@ -78,3 +78,9 @@ fis.match(/^\/modules\/(.+)\.js$/, {
         id: '$1'
     });
 ```
+
+### 注意
+由于有多版本的场景，lego会修改文件id，`比如require('zepto'), 产出后是 require('zepto/1.1.6/zepto')`,
+其他插件的配置中需要zepto时，比如 ignore: ['zepto']，查找会有问题，解决方案：
+1. ignore: ['zepto/1.1.6/zepto']，指定具体的版本
+2. 在处理逻辑之前，调用 fis.get('idMaps'), 将zepto的id进行转化（ps：idMaps中记录了lego对文件id的修改，key值是修改前的id，value是修改后的id）    
