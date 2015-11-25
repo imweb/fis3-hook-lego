@@ -13,7 +13,8 @@ module.exports = function(fis, opts) {
             var ret = lookup(info.rest, opts);
 
             if (ret) {
-                info.id = info.moduleId = ret;
+                info.id = 'lego_modules/' + ret + '.js';
+                info.moduleId = ret;
             }
         }
     });
