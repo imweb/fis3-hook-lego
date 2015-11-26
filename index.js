@@ -5,17 +5,32 @@
  */
 var lookup = require('./lookup');
 
-module.exports = function(fis, opts) {
+var entry = module.exports = function(fis, opts) {
     fis.on('lookup:file', function(info, file) {
-
-        // 暂时只分析 js 文件，后续 Ques 可以这里搞起
-        if (file.isJsLike && /^[a-zA-Z0-9_@.-]+$/.test(info.rest)) {
+        if (file.isJsLike && info.rest) {
             var ret = lookup(info.rest, opts);
-
             if (ret) {
-                info.id = 'lego_modules/' + ret + '.js';
-                info.moduleId = ret;
+                info.id = ret;
+                info.moduleId = 
+                    ret.replace(/^[^\/]*\/?/, '').replace(/\.js$/,'');
             }
         }
     });
 };
+
+entry.defaultOptions = {
+    paths: [
+        {
+            location: 'lego_modules',
+            // lego_modules/pkgName/version/subFile
+            type: 'lego'
+        },
+        {
+            location: 'modules',
+            // modules/mod.js
+            // modules/mod/mod.js
+            type: 'mod'
+        }
+    ]
+};
+
