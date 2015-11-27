@@ -21,15 +21,15 @@ var entry = module.exports = function(fis, opts) {
 entry.defaultOptions = {
     paths: [
         {
-            location: 'lego_modules',
-            // lego_modules/pkgName/version/subFile
-            type: 'lego'
-        },
-        {
             location: 'modules',
             // modules/mod.js
             // modules/mod/mod.js
             type: 'mod'
+        },
+        {
+            location: 'lego_modules',
+            // lego_modules/pkgName/version/subFile
+            type: 'lego'
         }
     ]
 };
