@@ -118,7 +118,7 @@ function getLegoModule(root, id) {
         // main
         // zepto/x.x.x/zepto.js 同名文件
         // zepto/x.x.x/index.js index 文件
-        [subFile, root, 'index'].every(function(item) {
+        [subFile, pkgName, 'index'].every(function(item) {
             subFile = item;
             return !item || !_.isFile(_(lego, pkgName, ver, item + '.js')); 
         });
