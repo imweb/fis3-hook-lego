@@ -57,10 +57,10 @@ function getModule(root, id) {
 
     if (_.isFile(_(mod, id + '.js'))) {
         fis.log.debug('lego: get %s from <modules>', id);
-        return _(root, id + '.js');
+        return fis.uri(_(root, id + '.js'));
     } else if (_.isFile(_(mod, id, id + '.js'))) {
         fis.log.debug('lego: get %s from <modules>', id + '/' + id);
-        return _(root, id, id + '.js');
+        return fis.uri(_(root, id, id + '.js'));
     }
 
     return null;
@@ -128,7 +128,7 @@ function getLegoModule(root, id) {
         return fis.log.error('lego: 找不到 lego 组件 %s 的对应的文件', id, subFile);
     }
 
-    return _(root, pkgName, ver, subFile + '.js');
+    return fis.uri(_(root, pkgName, ver, subFile + '.js'));
 }
 
 /**

@@ -7,12 +7,12 @@ var lookup = require('./lookup');
 
 var entry = module.exports = function(fis, opts) {
     fis.on('lookup:file', function(info, file) {
-        if (file.isJsLike && info.rest) {
+        // 不处理相对路径的文件和已经处理了的文件
+        if (file.isJsLike && info.rest && info.rest[0] !== '.' && !info.id) {
             var ret = lookup(info.rest, opts);
-            if (ret) {
-                info.id = ret;
-                info.moduleId = 
-                    ret.replace(/^[^\/]*\/?/, '').replace(/\.js$/,'');
+            if (ret && ret.file) {
+                info.id = ret.file.getId();
+                info.file = ret.file;
             }
         }
     });
