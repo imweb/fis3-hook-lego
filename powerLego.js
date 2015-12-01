@@ -5,7 +5,7 @@ var _ = fis.util,
 
 
 module.exports = {
-    reg: /^lego_modules\/([a-zA-Z0-9-_]+)(@\d+\.\d+\.\d+)?\/(.*)$/,
+    reg: /^[\.\/]*?lego_modules\/([a-zA-Z0-9-_]+)(@\d+\.\d+\.\d+)?\/(.*)$/,
     lookup: function (id, opts) {
         var versions,
             match = id.match(this.reg),
@@ -52,7 +52,7 @@ module.exports = {
         }
 
         if (!_.isFile(_(lego, pkgName, ver, subFile))) {
-            return fis.log.error('lego: 找不到 lego 组件 %s 的对应的文件', id, subFile);
+            return fis.log.info('lego: 找不到 lego 组件 %s 的对应的文件', id, subFile);
         }
 
         return fis.uri(_(root, pkgName, ver, subFile));
