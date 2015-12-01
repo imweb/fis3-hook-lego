@@ -7,7 +7,7 @@ var _ = fis.util,
 module.exports = {
     reg: /^lego_modules\/([a-zA-Z0-9-_]+)(@\d+\.\d+\.\d+)?\/(.*)$/,
     lookup: function (id, opts) {
-        var ver, versions,
+        var versions,
             match = id.match(this.reg),
             lego = fis.project.getProjectPath(root),
             pkgName = match && match[1] || '',
@@ -49,7 +49,7 @@ module.exports = {
                 // 如果不存在 package.json
                 fis.log.info('lego: 组件 %s 没有 package.json', id);
             }
-
+        }
 
         if (!_.isFile(_(lego, pkgName, ver, subFile))) {
             return fis.log.error('lego: 找不到 lego 组件 %s 的对应的文件', id, subFile);
@@ -71,11 +71,10 @@ function getListAll(root) {
         _listAll[root] = {};
         path = fis.project.getProjectPath(root);
         if (_.isDir(path)) {
-            fs.readdirSync(path).forEach(function(item) {
+            fs.readdirSync(path).forEach(function (item) {
                 _listAll[root][item] = true;
             });
         }
     }
     return _listAll[root];
 };
-
