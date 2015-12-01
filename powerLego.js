@@ -5,7 +5,7 @@ var _ = fis.util,
 
 
 module.exports = {
-    reg: /^[\.\/]*?lego_modules\/([a-zA-Z0-9-_]+)(@\d+\.\d+\.\d+)?\/(.*)$/,
+    reg: /^[\.\/]*?lego_modules\/([^@\/]+)(@\d+\.\d+\.\d+)?\/(.*)$/,
     lookup: function (id, opts) {
         var versions,
             match = id.match(this.reg),
