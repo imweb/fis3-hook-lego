@@ -14,8 +14,6 @@ var _ = fis.util,
 module.exports = function(id, opts) {
     var ignore = opts.ignore,
         ret;
-    // 剔除后缀
-    id = id.replace(/\.js$/, '');
 
     if (typeof ignore === 'string') {
         ignore = [opts.ignore];
