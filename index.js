@@ -45,7 +45,7 @@ function onProccessStart(file) {
         var content = file.getContent();
         if (content) {
             content = content.replace(
-                /(<script\s[^>]*src=["'])([^"']+)/g, 
+                /(<script\s[^>]*src=["'])([^?#"']+)/g, 
                 function(str) {
                     var src = RegExp.$2,
                         before = RegExp.$1;
