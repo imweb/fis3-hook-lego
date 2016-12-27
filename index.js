@@ -46,9 +46,7 @@ function onProccessStart(file) {
         if (content) {
             content = content.replace(
                 /(<script\s[^>]*src=["'])([^?#"']+)/g, 
-                function(str) {
-                    var src = RegExp.$2,
-                        before = RegExp.$1;
+                function(str, before, src) {
                     if (src[0] !== '.' && !src.match(/^\w+:/i)) {
                         var ret = lookup(src, opts);
                         if (ret && ret.file) {
